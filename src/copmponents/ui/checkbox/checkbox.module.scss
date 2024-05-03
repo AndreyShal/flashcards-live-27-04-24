@@ -1,0 +1,63 @@
+@import '@/styles/mixins';
+
+.label {
+  @include flex(row, 0, 12px, center);
+
+  cursor: pointer;
+  width: max-content;
+
+  &.disabled {
+    cursor: auto;
+    color: var(--color-dark-100);
+  }
+
+  .checkbox {
+    @include interactive-circle(--color-dark-100);
+
+    all: unset;
+
+    cursor: pointer;
+
+    position: relative;
+
+    width: 18px;
+    height: 18px;
+
+    .frame {
+      position: absolute;
+      z-index: 5;
+      inset: 0;
+
+      box-sizing: border-box;
+
+      border: 2px solid var(--color-light-900);
+      border-radius: 2px;
+    }
+
+    .indicator {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+
+      fill: var(--color-light-100);
+    }
+
+    &:disabled {
+      cursor: auto;
+
+      &::before,
+      &::after {
+        @include animation-circle-control(0);
+      }
+
+      .frame {
+        border-color: var(--color-dark-100);
+      }
+
+      .indicator {
+        fill: var(--color-dark-100);
+      }
+    }
+  }
+}
