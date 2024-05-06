@@ -72,11 +72,6 @@ export const LoginForm = () => {
       {import.meta.env.DEV && <DevTool control={control} />}
       <form onSubmit={onSubmit}>
         password has to have at least 1 character: {password1char ? 'done' : 'bad'}
-        {/*<TextField*/}
-        {/*  {...register('password')}*/}
-        {/*  errorMessage={errors.password?.message}*/}
-        {/*  label={'password'}*/}
-        {/*/>*/}
         <FormTextfield control={control} label={'email'} name={'email'} />
         <FormTextfield control={control} label={'password'} name={'password'} />
         <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
