@@ -5,9 +5,9 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Checkbox } from '../checkbox'
 
 const meta = {
-  title: 'Components/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
+  title: 'Components/Checkbox',
 } satisfies Meta<typeof Checkbox>
 
 export default meta
@@ -18,6 +18,7 @@ export const Unchecked: Story = {
   args: {
     checked: false,
     label: 'Click me',
+    onChange: () => console.log('Checkbox clicked'),
   },
 }
 
@@ -25,22 +26,25 @@ export const Checked: Story = {
   args: {
     checked: true,
     label: 'Click me',
+    onChange: () => console.log('Checkbox clicked'),
   },
 }
 
 export const DisabledChecked: Story = {
   args: {
     checked: true,
-    label: 'Click me',
     disabled: true,
+    label: 'Click me',
+    onChange: () => console.log('Checkbox clicked'),
   },
 }
 
 export const DisabledUnchecked: Story = {
   args: {
     checked: false,
-    label: 'Click me',
     disabled: true,
+    label: 'Click me',
+    onChange: () => console.log('Checkbox clicked'),
   },
 }
 
@@ -48,6 +52,7 @@ export const Controlled: Story = {
   args: {
     checked: false,
     label: 'Click here',
+    onChange: () => console.log('Checkbox clicked'),
   },
   render: args => {
     const [checked, setChecked] = useState(false)
