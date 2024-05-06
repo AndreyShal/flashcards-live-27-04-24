@@ -1,28 +1,29 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ControlledCheckbox } from '@/copmponents/controlled/controlled-checkbox/controlled-checkbox'
+import { FormCheckbox } from '@/copmponents/ui/form/form-checkbox'
+import { FormTextfield } from '@/copmponents/ui/form/form-textfield'
+import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import { Button } from '../../ui/button'
-import { TextField } from '../../ui/text-field'
 
 const isPasswordAtLeastChar = (password: string) => {
   return password?.length > 0
 }
 
 const passwordMinLengthShema = z.object({
-  password: z.string().min(1, 'Password must be at least 1 characters'),
+  password: z.string().min(3, 'Password must be at least 1 characters'),
 })
 
 const passwordMaxLengthShema = z.object({
-  password: z.string().max(8, 'Password must be at most 8 characters'),
+  password: z.string().max(30, 'Password must be at most 8 characters'),
 })
 
 const loginSchema = z
   .object({
-    email: z.string().email('Please enter a valid email'),
+    email: z.string().trim().email('Please enter a valid email'),
     password: z.string().min(3, 'Password must be at least 3 characters'),
     rememberMe: z.literal(true, {
       errorMap: () => ({
@@ -41,7 +42,7 @@ export const LoginForm = () => {
     control,
     formState: { errors },
     handleSubmit,
-    register,
+    // register,
     watch,
   } = useForm<FormValues>({
     // mode: "onSubmit" //default
@@ -67,17 +68,21 @@ export const LoginForm = () => {
   }, [values])
 
   return (
-    <form onSubmit={onSubmit}>
-      password has to have at least 1 character: {password1char ? 'done' : 'bad'}
-      <TextField {...register('email')} errorMessage={errors.email?.message} label={'email'} />
-      <TextField
-        {...register('password')}
-        errorMessage={errors.password?.message}
-        label={'password'}
-      />
-      <ControlledCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
-      {errors?.rememberMe?.message}
-      <Button type={'submit'}>Submit</Button>
-    </form>
+    <>
+      {import.meta.env.DEV && <DevTool control={control} />}
+      <form onSubmit={onSubmit}>
+        password has to have at least 1 character: {password1char ? 'done' : 'bad'}
+        {/*<TextField*/}
+        {/*  {...register('password')}*/}
+        {/*  errorMessage={errors.password?.message}*/}
+        {/*  label={'password'}*/}
+        {/*/>*/}
+        <FormTextfield control={control} label={'email'} name={'email'} />
+        <FormTextfield control={control} label={'password'} name={'password'} />
+        <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
+        {errors?.rememberMe?.message}
+        <Button type={'submit'}>Submit</Button>
+      </form>
+    </>
   )
 }
