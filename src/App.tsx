@@ -1,13 +1,12 @@
-// import { TextField } from '@/copmponents/ui/text-field'
+import { Provider } from 'react-redux'
 
-import { Typography } from '@/copmponents/ui/typography'
+import { Router } from '@/router'
+import { store } from '@/services/store'
 
 export function App() {
   return (
-    <div>
-      Hello
-      {/*<TextField>Eeee</TextField>*/}
-      <Typography>A</Typography>
-    </div>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   )
 }

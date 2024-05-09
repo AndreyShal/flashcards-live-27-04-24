@@ -4,6 +4,7 @@ import { Button } from './'
 
 const meta = {
   argTypes: {
+    disabled: { control: 'boolean' },
     variant: {
       control: { type: 'radio' },
       options: ['primary', 'secondary', 'tertiary', 'link'],
