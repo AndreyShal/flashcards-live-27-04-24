@@ -1,9 +1,8 @@
 import { Provider } from 'react-redux'
 
-import { Router } from '@/router'
-import { store } from '@/services/store'
+import { Router, store } from '@/app/providers'
 
-export function App() {
+export const App = () => {
   return (
     <Provider store={store}>
       <Router />

@@ -7,24 +7,23 @@ import s from './typography.module.scss'
 export type TypographyProps<T extends ElementType = 'p'> = {
   as?: T
   variant?:
-    | 'body1'
-    | 'body2'
-    | 'caption'
+    | 'large'
     | 'h1'
     | 'h2'
     | 'h3'
-    | 'large'
+    | 'body1'
+    | 'subtitle1'
+    | 'body2'
+    | 'subtitle2'
+    | 'caption'
+    | 'overline'
     | 'link1'
     | 'link2'
-    | 'overline'
-    | 'subtitle1'
-    | 'subtitle2'
 } & ComponentPropsWithoutRef<T>
-
 export const Typography = <T extends ElementType = 'p'>(
-  props: ComponentPropsWithoutRef<T> & TypographyProps<T>
+  props: TypographyProps<T> & ComponentPropsWithoutRef<T>
 ) => {
-  const { as: Component = 'p', className, variant = 'body1', ...rest } = props
+  const { variant = 'body1', className, as: Component = 'p', ...rest } = props
   const classNames = clsx(s[variant], className)
 
   return <Component className={classNames} {...rest} />

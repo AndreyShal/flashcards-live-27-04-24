@@ -1,22 +1,23 @@
-import { ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { forwardRef, useState, ComponentPropsWithoutRef } from 'react'
 
-import { Icon } from '@/copmponents/ui/icon/icon'
-import { Typography } from '@/copmponents/ui/typography'
 import { clsx } from 'clsx'
 
 import s from './text-field.module.scss'
 
+import { Icon } from '@/components/ui/icon/icon.tsx'
+import { Typography } from '@/components/ui/typography'
+
 export type TextFieldProps = {
-  clearField?: () => void
-  errorMessage?: string
+  type?: 'search' | 'text' | 'password'
   label?: string
-  type?: 'password' | 'search' | 'text'
+  errorMessage?: string
+  clearField?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
-type PropsType = Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps> & TextFieldProps
+type PropsType = TextFieldProps & Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps>
 
 export const TextField = forwardRef<HTMLInputElement, PropsType>(
-  ({ className, clearField, errorMessage, label, type = 'text', ...rest }, ref) => {
+  ({ type = 'text', errorMessage, className, clearField, label, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
 
     const isPasswordType = type === 'password'
@@ -30,50 +31,50 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
     const passwordHandler = () => setShowPassword(prev => !prev)
 
     const classes = {
-      input: clsx(s.input, isSearchType && s.search, errorMessage && s.error),
-      label: clsx(s.label, rest.disabled && s.disabled),
       root: clsx(s.root, className),
+      label: clsx(s.label, rest.disabled && s.disabled),
+      input: clsx(s.input, isSearchType && s.search, errorMessage && s.error),
       searchIcon: clsx(s.searchIcon, rest.disabled && s.disabledIcon),
     }
 
     return (
       <div className={classes.root}>
-        <Typography as={'label'} className={classes.label} variant={'body2'}>
+        <Typography as={'label'} variant="body2" className={classes.label}>
           {label}
           <div className={s.container}>
             <input
               className={classes.input}
-              ref={ref}
               type={isPasswordType ? finalType : 'text'}
+              ref={ref}
               {...rest}
             />
             {isPasswordType && (
               <button
+                type="button"
                 className={s.button}
-                disabled={rest.disabled}
                 onClick={passwordHandler}
-                type={'button'}
+                disabled={rest.disabled}
               >
-                {showPassword ? <Icon name={'eyeOff'} /> : <Icon name={'eye'} />}
+                {showPassword ? <Icon name="eyeOff" /> : <Icon name="eye" />}
               </button>
             )}
             {isSearchType && (
-              <Icon className={classes.searchIcon} height={20} name={'search'} width={20} />
+              <Icon name="search" width={20} height={20} className={classes.searchIcon} />
             )}
             {displayClearButton && (
               <button
+                type="button"
                 className={s.button}
-                disabled={rest.disabled}
                 onClick={clearField}
-                type={'button'}
+                disabled={rest.disabled}
               >
-                <Icon height={16} name={'cross'} width={16} />
+                <Icon name="cross" width={16} height={16} />
               </button>
             )}
           </div>
         </Typography>
         {!!errorMessage && (
-          <Typography className={s.errorMessage} variant={'caption'}>
+          <Typography variant="caption" className={s.errorMessage}>
             {errorMessage}
           </Typography>
         )}

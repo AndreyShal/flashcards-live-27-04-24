@@ -1,37 +1,38 @@
 import { FC } from 'react'
 
-import { Icon } from '@/copmponents/ui/icon/icon'
-import { Typography } from '@/copmponents/ui/typography'
 import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
 import s from './checkbox.module.scss'
 
+import { Icon } from '@/components/ui/icon/icon.tsx'
+import { Typography } from '@/components/ui/typography'
+
 export type CheckboxProps = {
   checked: boolean
-  className?: string
-  disabled?: boolean
+  onChange: (checked: boolean) => void
   id?: string
   label?: string
-  onChange: (checked: boolean) => void
+  disabled?: boolean
+  className?: string
 }
 
 export const Checkbox: FC<CheckboxProps> = props => {
-  const { checked, className, disabled, id, label, onChange } = props
+  const { checked, label, disabled, id, onChange, className } = props
 
   const classes = {
-    checkbox: s.checkbox,
     root: clsx(s.label, disabled && s.disabled, className),
+    checkbox: s.checkbox,
   }
 
   return (
-    <Typography as={'label'} className={classes.root}>
+    <Typography as="label" className={classes.root}>
       <RadixCheckbox.Root
-        checked={checked}
-        className={classes.checkbox}
-        disabled={disabled}
         id={id}
+        className={classes.checkbox}
+        checked={checked}
         onCheckedChange={onChange}
+        disabled={disabled}
       >
         <div className={s.frame}></div>
         {checked && (

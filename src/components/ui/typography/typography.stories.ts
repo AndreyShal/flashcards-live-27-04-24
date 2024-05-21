@@ -3,28 +3,28 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Typography } from './'
 
 const meta = {
+  title: 'Components/Typography',
+  component: Typography,
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: 'radio' },
       options: [
-        'body1',
-        'body2',
-        'caption',
+        'large',
         'h1',
         'h2',
         'h3',
-        'large',
-        'link1',
-        'link2',
-        'overline',
+        'body1',
+        'body2',
         'subtitle1',
         'subtitle2',
+        'caption',
+        'overline',
+        'link1',
+        'link2',
       ],
+      control: { type: 'radio' },
     },
   },
-  component: Typography,
-  tags: ['autodocs'],
-  title: 'Components/Typography',
 } satisfies Meta<typeof Typography>
 
 export default meta
@@ -32,73 +32,73 @@ type Story = StoryObj<typeof meta>
 
 export const Large: Story = {
   args: {
-    children: 'Some text',
     variant: 'large',
+    children: 'Some text',
   },
 }
 export const H1: Story = {
   args: {
-    children: 'Some text',
     variant: 'h1',
+    children: 'Some text',
   },
 }
 export const H2: Story = {
   args: {
-    children: 'Some text',
     variant: 'h2',
+    children: 'Some text',
   },
 }
 export const H3: Story = {
   args: {
-    children: 'Some text',
     variant: 'h3',
+    children: 'Some text',
   },
 }
 export const Body1: Story = {
   args: {
-    children: 'Some text',
     variant: 'body1',
+    children: 'Some text',
   },
 }
 export const Subtitle1: Story = {
   args: {
-    children: 'Some text',
     variant: 'subtitle1',
+    children: 'Some text',
   },
 }
 export const Body2: Story = {
   args: {
-    children: 'Some text',
     variant: 'body2',
+    children: 'Some text',
   },
 }
 export const Subtitle2: Story = {
   args: {
-    children: 'Some text',
     variant: 'subtitle2',
+    children: 'Some text',
   },
 }
 export const Caption: Story = {
   args: {
-    children: 'Some text',
     variant: 'caption',
+    children: 'Some text',
   },
 }
 export const Overline: Story = {
   args: {
-    children: 'Some text',
     variant: 'overline',
+    children: 'Some text',
   },
 }
 export const Link1: Story = {
   args: {
-    children: 'Some text',
     variant: 'link1',
+    children: 'Some text',
   },
 }
 export const Link2: Story = {
   args: {
-    children: 'Some text',
     variant: 'link2',
+    children: 'Some text',
   },
 }
