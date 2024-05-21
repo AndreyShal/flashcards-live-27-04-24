@@ -1,0 +1,49 @@
+@import '@/styles/mixins';
+
+.cover {
+  align-self: center;
+  max-width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.root {
+  @include container(420px);
+
+  .content {
+    @include flex(column, 24px, 24px, stretch);
+
+    .title {
+      align-self: center;
+      word-break: break-word;
+    }
+
+    .question {
+      @include flex(column, 6px);
+
+      word-break: break-word;
+
+      .caption {
+        color: var(--color-dark-100);
+      }
+    }
+
+    .answer {
+      @include flex(column, 6px);
+
+      word-break: break-word;
+
+      .answerText {
+        align-self: stretch;
+
+        > b {
+          font-weight: var(--font-weight-bold);
+        }
+      }
+
+      .rate {
+        padding-block: 12px;
+      }
+    }
+  }
+}

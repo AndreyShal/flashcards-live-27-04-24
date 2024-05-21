@@ -1,0 +1,19 @@
+@import '@/styles/mixins';
+
+.root {
+  .header {
+    margin-bottom: 36px;
+
+    .top {
+      @include flex(row, 0, 0, center, space-between);
+
+      margin-bottom: 7px;
+    }
+  }
+
+  .pagination {
+    @include flex(row, 24px, 24px, center, center);
+
+    margin-top: 64px;
+  }
+}

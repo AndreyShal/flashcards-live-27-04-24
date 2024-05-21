@@ -1,0 +1,94 @@
+@import '@/styles/mixins';
+
+@mixin header-interactions($hover-color: --color-accent-100, $size: 4px) {
+  &:hover {
+    filter: drop-shadow(0 0 $size var($hover-color));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-700);
+  }
+}
+
+.root {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  height: 65px;
+
+  background-color: var(--color-dark-700);
+  border-bottom: 1px solid var(--color-dark-500);
+
+  .container {
+    @include flex(row, 0, 0, center, space-between);
+    @include container(1010px);
+
+    height: 100%;
+
+    .user {
+      @include flex(row, 0, 14px, center);
+
+      .name {
+        text-decoration: none;
+        border-bottom: 2px dashed var(--color-light-100);
+        outline: none;
+        transition: 0.3s;
+
+        &:hover {
+          color: var(--color-accent-100);
+          border-bottom-color: var(--color-accent-100);
+        }
+
+        &:active {
+          color: var(--color-accent-300);
+          border-bottom-color: var(--color-accent-300);
+        }
+
+        &:focus-visible {
+          color: var(--color-info-300);
+          border-bottom-color: var(--color-info-300);
+        }
+      }
+
+      .dropdownButton {
+        @include header-interactions(--color-accent-100, 6px);
+
+        all: unset;
+
+        cursor: pointer;
+
+        width: 48px;
+        height: 48px;
+
+        border-radius: 50%;
+        outline: 2px solid transparent;
+
+        transition: 0.3s;
+      }
+    }
+
+    .link {
+      @include header-interactions(--color-accent-500);
+
+      transform: translateX(-4px);
+
+      display: grid;
+      place-items: center;
+
+      width: 124px;
+      height: 46px;
+
+      border-radius: 23px;
+      outline: 2px solid transparent;
+
+      transition: 0.3s;
+
+      .logo {
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@import '@/styles/mixins';
+
+.root {
+  transition: 0.3s;
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--color-dark-800);
+  }
+
+  .question,
+  .answer {
+    position: relative;
+
+    padding: 10px 24px 10px 110px;
+
+    text-align: left;
+    word-break: break-word;
+    vertical-align: top;
+
+    > h3 {
+      min-height: 50px;
+    }
+
+    .cover {
+      position: absolute;
+      left: 24px;
+
+      max-width: 70px;
+      height: 50px;
+
+      object-fit: cover;
+      border-radius: 3px;
+    }
+  }
+
+  .controls {
+    width: 96px;
+    text-align: center;
+
+    .buttons {
+      @include flex(row, 0, 12px, center, center);
+    }
+  }
+
+  @media (width >= 950px) {
+    .date {
+      width: 180px;
+    }
+
+    .grade {
+      width: 170px;
+    }
+  }
+}
