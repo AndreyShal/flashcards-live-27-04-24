@@ -9,7 +9,6 @@ import {
   UserResponse,
 } from './types.ts'
 
-import { requestHandler } from '@/common/utils'
 import { baseAPI } from '@/services/base-api.ts'
 
 const authAPI = baseAPI.injectEndpoints({
@@ -33,24 +32,37 @@ const authAPI = baseAPI.injectEndpoints({
       providesTags: ['Me'],
     }),
     login: builder.mutation<LoginResponse, LoginArgs>({
-      query: data => ({
-        url: `v1/auth/login`,
-        method: 'POST',
-        body: data,
-      }),
       invalidatesTags: ['Me'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        const { data } = await queryFulfilled
+
+        if (!data) {
+          return
+        }
+
+        console.log('login data', data)
+
+        localStorage.setItem('accessToken', data.accessToken.trim())
+        localStorage.setItem('refreshToken', data.refreshToken.trim())
+      },
+      query: body => ({
+        body,
+        method: 'POST',
+        url: '/v1/auth/login',
+      }),
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: `v1/auth/logout`,
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
       }),
       invalidatesTags: ['Me'],
-      async onQueryStarted(_, { queryFulfilled }) {
-        await requestHandler(async () => {
-          await queryFulfilled
-          toast.info('You are successfully logged out', { containerId: 'common' })
-        })
+      async onQueryStarted() {
+        toast.info('You are successfully logged out', { containerId: 'common' })
+        localStorage.clear()
       },
     }),
     updateProfile: builder.mutation<UserResponse, UpdateProfileFormData>({

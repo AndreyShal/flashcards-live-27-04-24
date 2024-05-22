@@ -32,6 +32,7 @@ export const Pack = () => {
 
   const { data: pack, isLoading: packLoading } = useGetDeckInfoQuery({ id: packId })
   const authorId = pack?.userId
+
   console.log(pack)
   const { data: me } = useGetMeQuery()
   const authUserId = (me as UserResponse)?.id

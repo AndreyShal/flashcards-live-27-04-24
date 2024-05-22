@@ -14,7 +14,6 @@ import { LoginArgs, useGetMeQuery, useLoginMutation } from '@/features/auth/serv
 export const SignIn = () => {
   const [login] = useLoginMutation()
   const { data: me } = useGetMeQuery()
-
   const loginHandler = async (data: LoginArgs) => {
     await requestHandler(async () => {
       await login(data).unwrap()

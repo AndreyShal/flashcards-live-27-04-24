@@ -1,13 +1,12 @@
-import { FC, useState } from 'react'
-
-import { toast } from 'react-toastify'
+import { FC } from 'react'
 
 import s from './pack.module.scss'
 
+import { useUploadImg } from '@/common/hooks'
 import {
   ControlledCheckbox,
-  ControlledTextField,
   ControlledPreviewFileUploader,
+  ControlledTextField,
 } from '@/components/controlled'
 import { PackFormType, usePackForm } from '@/components/forms/pack/use-pack-form.ts'
 import { Button } from '@/components/ui/button'
@@ -23,9 +22,6 @@ type Props = {
 }
 
 export const PackForm: FC<Props> = ({ onSubmit, defaultValues, onCancel }) => {
-  const [downloaded, setDownloaded] = useState<string | null>(defaultValues?.cover || null)
-  const [coverError, setCoverError] = useState<string | null>(null)
-
   const values: PackFormType = {
     name: defaultValues?.name || '',
     isPrivate: defaultValues?.isPrivate || false,
@@ -34,41 +30,21 @@ export const PackForm: FC<Props> = ({ onSubmit, defaultValues, onCancel }) => {
   const { watch, control, trigger, resetField, setValue, handleSubmit, getFieldState } =
     usePackForm(values)
 
+  const { coverError, deleteCoverHandler, downloaded, extraActions } = useUploadImg<
+    'name' | 'isPrivate' | 'cover'
+  >({
+    getFieldState,
+    name: 'cover',
+    resetField,
+    setValue,
+    trigger,
+    watch,
+    defaultValues,
+  })
+
   const fileIsDirty = getFieldState('cover').isDirty
 
   const file = watch('cover')
-
-  const deleteCoverHandler = () => {
-    if (coverError) {
-      setCoverError(null)
-    }
-    toast.warning('You deleted cover', { containerId: 'modal' })
-    setValue('cover', null)
-    setDownloaded(null)
-  }
-
-  const extraActions = async () => {
-    const success = await trigger('cover')
-    const { error } = getFieldState('cover')
-    const file = watch('cover')
-
-    if (!success && error?.message) {
-      toast.error(error.message, { containerId: 'modal' })
-      setCoverError(error.message)
-      resetField('cover')
-    }
-
-    if (file) {
-      const badCase = defaultValues?.cover ?? null
-      const img = success ? URL.createObjectURL(file) : badCase
-
-      setDownloaded(img)
-
-      if (coverError && !error?.message) {
-        setCoverError(null)
-      }
-    }
-  }
 
   const sendHandler = (data: PackFormType) => {
     const form = new FormData()

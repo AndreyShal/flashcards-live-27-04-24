@@ -6,6 +6,7 @@ export type LoginArgs = {
 
 export type LoginResponse = {
   accessToken: string
+  refreshToken: string
 }
 
 export type UserResponse = {
