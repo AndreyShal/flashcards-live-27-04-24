@@ -30,16 +30,14 @@ export const PackForm: FC<Props> = ({ onSubmit, defaultValues, onCancel }) => {
   const { watch, control, trigger, resetField, setValue, handleSubmit, getFieldState } =
     usePackForm(values)
 
-  const { coverError, deleteCoverHandler, downloaded, extraActions } = useUploadImg<
-    'name' | 'isPrivate' | 'cover'
-  >({
+  const { coverError, deleteCoverHandler, downloaded, extraActions } = useUploadImg<PackFormType>({
     getFieldState,
     name: 'cover',
     resetField,
     setValue,
     trigger,
     watch,
-    defaultValues,
+    defaultCover: defaultValues?.cover,
   })
 
   const fileIsDirty = getFieldState('cover').isDirty
