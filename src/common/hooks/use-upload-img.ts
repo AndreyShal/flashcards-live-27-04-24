@@ -1,19 +1,19 @@
 import { useState } from 'react'
 
 import {
+  FieldValues,
+  Path,
   UseFormGetFieldState,
+  UseFormResetField,
   UseFormSetValue,
   UseFormTrigger,
   UseFormWatch,
-  UseFormResetField,
-  Path,
 } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import defImg from '@/assets/images/default-image.jpg'
-import { PackFormType } from '@/components/forms/pack'
 
-type UploadImgType<TFieldValues extends PackFormType> = {
+type UploadImgType<TFieldValues extends FieldValues> = {
   getFieldState: UseFormGetFieldState<TFieldValues>
   name: Path<TFieldValues>
   resetField: UseFormResetField<TFieldValues>
@@ -23,7 +23,7 @@ type UploadImgType<TFieldValues extends PackFormType> = {
   defaultCover?: string | null
 }
 
-export const useUploadImg = <TFieldValues extends PackFormType>({
+export const useUploadImg = <TFieldValues extends FieldValues>({
   getFieldState,
   name,
   resetField,
