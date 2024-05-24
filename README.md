@@ -10,9 +10,9 @@ React + TypeScript SPA 🚀
 
 ### Links:
 
-> [UI-kit](https://quiz-cards-ui-kit.vercel.app/) on Storybook
+> [UI-kit](https://flashcards-live-27-04-24-git-s-afec4a-andreys-projects-786f3c2a.vercel.app//) on Storybook
 >
-> [Quiz-Cards](https://quiz-cards-prod.vercel.app/) - web application
+> [Quiz-Cards](https://flashcards-live-27-04-24.vercel.app/) - web application
 
 <hr>
 
